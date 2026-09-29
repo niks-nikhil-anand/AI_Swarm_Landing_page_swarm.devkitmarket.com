@@ -31,6 +31,7 @@ export const icons = {
   lock: "M6 11h12v10H6zM8 11V7a4 4 0 0 1 8 0v4",
   users: "M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM2 21c0-4 3-6 7-6s7 2 7 6M17 3.5a4 4 0 0 1 0 7.5M22 21c0-3-1.5-5-4-5.7",
   key: "M8 14a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 10h10M18 10v3M15 10v2",
+  building: "M4 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16M15 9h3a2 2 0 0 1 2 2v10M3 21h18M8 7h3M8 11h3M8 15h3",
 } as const;
 
 export type IconName = keyof typeof icons;

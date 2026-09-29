@@ -14,7 +14,7 @@ export function HeroDemo() {
   const preset = demoPresets[selected];
 
   return (
-    <div className="mt-10 w-full max-w-[1200px] overflow-hidden rounded-3xl border border-edge bg-code shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25),0_0_50px_rgba(124,111,247,0.12)] lg:mt-16">
+    <div className="mx-auto mt-10 w-full max-w-[1200px] overflow-hidden rounded-3xl border border-edge bg-code shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25),0_0_50px_rgba(124,111,247,0.12)] lg:mt-16">
       <div className="flex h-10 items-center justify-between border-b border-edge px-4 font-code xl:h-11 xl:px-[18px]">
         <span className="hidden xl:block">
           <TrafficLights />
