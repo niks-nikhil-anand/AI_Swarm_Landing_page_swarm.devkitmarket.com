@@ -1,0 +1,172 @@
+/* AI Swarm marketing site.
+   Ported from the main app's app/globals.css. Tailwind v4 runs WITHOUT
+   preflight to match the source; the landing components were built that way. */
+
+@layer theme, base, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+/* next-themes sets .light / .dark on <html>; `dark:` follows it instead of the OS. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  * { box-sizing: border-box; }
+  html { color-scheme: dark; background: var(--color-ink); }
+  html.light { color-scheme: light; }
+  body {
+    margin: 0;
+    /* viewport-fit=cover: keep content clear of the notch on landscape iPhones (0 elsewhere). */
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    /* Inherited by landing elements without their own size (FAQ h3, lists, filter buttons). */
+    font-size: 14px;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4, p { margin: 0; }
+  a { color: inherit; text-decoration: none; }
+
+  *::-webkit-scrollbar { width: 10px; height: 10px; }
+  *::-webkit-scrollbar-thumb { background: var(--scrollbar); border-radius: 999px; border: 3px solid transparent; background-clip: content-box; }
+  *::-webkit-scrollbar-thumb:hover { background: var(--color-faint); background-clip: content-box; border: 3px solid transparent; }
+  *::-webkit-scrollbar-track { background: transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
+
+
+/* ============================================================
+   Landing page design tokens (components/landing)
+   ============================================================ */
+@theme {
+  /* Dark values (DevKit Market dark palette). Light overrides live in :root.light below. */
+  --color-ink: #0a0a0f;
+  --color-code: #0a0a0a;
+  --color-panel: #111118;
+  --color-panel-2: #15131f;
+  --color-line: #18181f;
+  --color-edge: rgb(255 255 255 / 0.1);
+  --color-dot: #2a2a33;
+  --color-fg: #f0eff5;
+  --color-fg-2: #c9d1d9;
+  --color-muted: #9998a8;
+  --color-dim: #807e90; /* #7c7a8c was 4.49:1 on panels; this clears WCAG AA */
+  --color-faint: #5a5868;
+  --color-brand: #7c6ff7;
+  --color-brand-strong: #6a5de8;
+  --color-brand-soft: #a89ef9;
+  --color-mint: #2dd4a7;
+  --color-sky: #5ba8f5;
+  --color-amber: #f5c542;
+  --color-pink: #e879b0;
+
+  --animate-flow: landing-flow 1.2s linear infinite;
+  --animate-blink: landing-blink 1.8s ease-in-out infinite;
+
+  @keyframes landing-flow {
+    to { stroke-dashoffset: -24; }
+  }
+  @keyframes landing-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+}
+
+/* Light theme: DevKit Market light palette. Hues are darkened for contrast on white. */
+:root {
+  --pattern-line: rgb(255 255 255 / 0.025);
+  --pattern-dot: rgb(255 255 255 / 0.06);
+  --scrollbar: #262626;
+}
+:root.light {
+  --color-ink: #fdfdfd;
+  --color-code: #f8fafc;
+  --color-panel: #f1f5f9;
+  --color-panel-2: #eef0fe;
+  --color-line: #e2e8f0;
+  --color-edge: #dbe2ea;
+  --color-dot: #cbd5e1;
+  --color-fg: #0f172a;
+  --color-fg-2: #334155;
+  --color-muted: #475569;
+  --color-dim: #556275;
+  --color-faint: #94a3b8;
+  /* One step darker than DevKit's so small labels and white-on-brand buttons pass WCAG AA on white. */
+  --color-brand: #5f51de;
+  --color-brand-strong: #5b4fd6;
+  --color-brand-soft: #4f46e5;
+  --color-mint: #04704f;
+  --color-sky: #1d4ed8;
+  --color-amber: #b45309;
+  --color-pink: #be185d;
+
+  --pattern-line: rgb(15 23 42 / 0.04);
+  --pattern-dot: rgb(15 23 42 / 0.08);
+  --scrollbar: #cbd5e1;
+}
+
+/* Font variables are set by next/font on the landing root, so inline them at use-site. */
+@theme inline {
+  --font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --font-display: var(--font-libre-baskerville), Georgia, serif;
+  --font-code: var(--font-jetbrains-mono), ui-monospace, monospace;
+}
+
+@utility bg-grid {
+  background-image:
+    linear-gradient(var(--pattern-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--pattern-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+@utility bg-grid-brand {
+  background-image:
+    linear-gradient(rgb(124 111 247 / 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(124 111 247 / 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+@utility bg-dots {
+  background-image: radial-gradient(var(--pattern-dot) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+
+.landing button { font: inherit; cursor: pointer; }
+.landing :is(a, button, input, textarea, select) { touch-action: manipulation; }
+.landing :is(a, button):focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+.landing input::placeholder { color: var(--color-dim); }
+
+/* ---------- Theme toggle (ported from DevKit Market) ---------- */
+.theme-toggle-thumb {
+  transition: transform 0.6s cubic-bezier(0.34, 1.5, 0.64, 1), background 0.5s ease, box-shadow 0.5s ease;
+}
+.theme-toggle-track { transition: background 0.6s ease, border-color 0.5s ease; }
+.theme-toggle-stars { transition: opacity 0.45s ease 0.1s; }
+.theme-toggle-clouds { transition: opacity 0.45s ease 0.15s; }
+
+@keyframes theme-twinkle { 0%, 100% { opacity: 0.9; transform: scale(1); } 50% { opacity: 0.2; transform: scale(0.5); } }
+@keyframes theme-shoot {
+  0% { transform: translateX(0) scaleX(0.2); opacity: 0; }
+  15% { opacity: 1; }
+  70% { transform: translateX(-30px) scaleX(1); opacity: 0.9; }
+  100% { transform: translateX(-38px) scaleX(0.2); opacity: 0; }
+}
+@keyframes theme-float { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(2px); } }
+@keyframes theme-sun-pulse { 0%, 100% { opacity: 0.35; transform: scale(1); } 50% { opacity: 0.65; transform: scale(1.4); } }
+@keyframes theme-ripple { 0% { transform: scale(0.4); opacity: 0.6; } 100% { transform: scale(3); opacity: 0; } }
+@keyframes theme-flash { 0% { opacity: 0; } 25% { opacity: 0.2; } 100% { opacity: 0; } }
+@keyframes theme-crater-pop { 0% { transform: scale(0); opacity: 0; } 65% { transform: scale(1.25); } 100% { transform: scale(1); opacity: 1; } }
+
+.theme-twinkle { animation: theme-twinkle 2.2s ease-in-out infinite; }
+.theme-shoot { animation: theme-shoot 1.8s ease-in-out 2.5s infinite; }
+.theme-float { animation: theme-float 3s ease-in-out infinite; }
+.theme-float-slow { animation: theme-float 4.5s ease-in-out 1s infinite; }
+.theme-sun-pulse { animation: theme-sun-pulse 1.8s ease-in-out infinite; }
+.theme-ripple { animation: theme-ripple 0.65s ease-out forwards; }
+.theme-flash { animation: theme-flash 0.5s ease-out forwards; }
+.theme-crater { animation: theme-crater-pop 0.45s ease-out both; }
