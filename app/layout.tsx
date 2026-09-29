@@ -6,7 +6,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "AI Swarm — Launch your SaaS with an AI team",
+    default: "AI Swarm - Launch your SaaS with an AI team",
     template: "%s | AI Swarm",
   },
   description: site.description,
