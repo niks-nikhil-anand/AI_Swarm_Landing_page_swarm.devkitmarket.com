@@ -289,8 +289,8 @@ export function SwarmCanvas({ className = "" }: { className?: string }) {
           ddx /= d;
           ddy /= d;
         }
-        gvx[g] += ddx * size * 1.1;
-        gvy[g] += ddy * size * 1.1;
+        gvx[g] += ddx * size * 0.8;
+        gvy[g] += ddy * size * 0.8;
         goalAt[g] = time; // pick a new wander goal right away
       }
       // Kick particles near the click so the burst reads as an explosion from that point.
@@ -299,7 +299,7 @@ export function SwarmCanvas({ className = "" }: { className?: string }) {
         const ddx = px[i] - x, ddy = py[i] - y;
         const d = Math.hypot(ddx, ddy) || 1;
         if (d < reach) {
-          const f = (1 - d / reach) * size * 2.2;
+          const f = (1 - d / reach) * size * 0.9;
           vx[i] += (ddx / d) * f;
           vy[i] += (ddy / d) * f;
         }
@@ -373,7 +373,7 @@ export function SwarmCanvas({ className = "" }: { className?: string }) {
 
       const kWord = 14 + 26 * Math.min(1, (time - started) / ASSEMBLE); // spring stiffens as it assembles
       // Burst: loose, so particles fly. Roam: medium, balls hold together but stay alive.
-      const k = splitMode === 1 ? 5 : splitMode === 2 ? 12 : kWord;
+      const k = splitMode === 1 ? 8 : splitMode === 2 ? 12 : kWord;
       const damp = 2 * Math.sqrt(k) * 0.55; // slightly under-damped: settles with a little life
       const wander = size * 0.006;
       const reach = size * 0.17;
