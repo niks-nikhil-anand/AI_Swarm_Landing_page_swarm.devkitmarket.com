@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum WaitlistStatus {
+  PENDING
+  NOTIFIED
+  UNSUBSCRIBED
+}
+
+model WaitlistSubscriber {
+  id                    String         @id @default(cuid())
+  email                 String         @unique @db.VarChar(320)
+  idea                  String?        @db.VarChar(2000)
+  source                String?        @db.VarChar(64)
+  status                WaitlistStatus @default(PENDING)
+  consentedAt           DateTime       @default(now()) @map("consented_at")
+  notifiedAt            DateTime?      @map("notified_at")
+  notificationAttempts  Int            @default(0) @map("notification_attempts")
+  lastNotificationError String?        @map("last_notification_error")
+  createdAt             DateTime       @default(now()) @map("created_at")
+  updatedAt             DateTime       @updatedAt @map("updated_at")
+
+  @@index([status, notifiedAt])
+  @@map("waitlist_subscribers")
+}
