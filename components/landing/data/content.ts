@@ -610,6 +610,54 @@ export const faqs = [
   { q: "What happens after the beta?", a: "Validate + Plan is free during the private beta, with no credit card required. Pricing will be announced before the beta ends, so you can decide before any paid plan begins." },
 ];
 
+/* ---------- Collaborators ---------- */
+
+export type SocialKind = "linkedin" | "github" | "reddit" | "x" | "portfolio";
+
+export type Collaborator = {
+  name: string;
+  role: string;
+  photo: string;
+  bio: string;
+  focus: string[];
+  /** Only listed profiles render; add a { kind, href } entry to show a new one. */
+  socials: { kind: SocialKind; href: string }[];
+};
+
+export const team = {
+  company: "Rubenius Interior Wellbeing LLP",
+};
+
+export const collaborators: Collaborator[] = [
+  {
+    name: "Nikhil Anand",
+    role: "Software Developer – Team Lead",
+    photo: "/team/nikhil-anand.jpg",
+    bio: "Full-stack developer with 6 years of freelance experience, shipping production apps with Next.js, Node.js and AWS and building AI workflows with LangChain and RAG. Also the founder of DevKit Market.",
+    focus: ["6 years freelance", "Product & engineering", "AI workflows"],
+    socials: [
+      { kind: "linkedin", href: "https://www.linkedin.com/in/nikhilanand86" },
+      { kind: "github", href: "https://github.com/niks-nikhil-anand" },
+      { kind: "reddit", href: "https://www.reddit.com/user/Defiant_Company_6015/" },
+      { kind: "x", href: "https://x.com/niks_developer" },
+      { kind: "portfolio", href: "https://www.devkitmarket.com/hire-me" },
+    ],
+  },
+  {
+    name: "Tripti Shakya",
+    role: "Full Stack Developer",
+    photo: "/team/tripti-shakya.jpg",
+    bio: "Full stack developer at Rubenius Interior Wellbeing, building AI Swarm's product experience across the frontend and backend.",
+    focus: ["Full-stack", "Product experience"],
+    socials: [
+      { kind: "linkedin", href: "https://www.linkedin.com/in/tripti-shakya-602097281/" },
+      { kind: "github", href: "https://github.com/triptishakya-dev" },
+      { kind: "reddit", href: "https://www.reddit.com/user/Huge-Leg-8072/" },
+      { kind: "x", href: "https://x.com/ShakyaTrip48522" },
+    ],
+  },
+];
+
 /* ---------- Footer ---------- */
 
 export const footerColumns = [
@@ -626,6 +674,7 @@ export const footerColumns = [
     links: [
       { label: "Methodology", href: "/methodology" },
       { label: "Roadmap", href: "#roadmap" },
+      { label: "Team", href: "#team" },
       { label: "FAQ", href: "#faq" },
     ],
   },
