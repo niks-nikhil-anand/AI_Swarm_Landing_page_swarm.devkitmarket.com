@@ -1,6 +1,7 @@
 import { landingFontVariables } from "./fonts";
 import { AnnouncementBar } from "./sections/AnnouncementBar";
 import { AppBuildersSkip } from "./sections/AppBuildersSkip";
+import { Collaborators } from "./sections/Collaborators";
 import { Deliverables } from "./sections/Deliverables";
 import { Faq } from "./sections/Faq";
 import { FinalCta } from "./sections/FinalCta";
@@ -29,6 +30,7 @@ export function LandingPage() {
         <InControl />
         <Pricing />
         <Stages />
+        <Collaborators />
         <Faq />
         <FinalCta />
       </main>
