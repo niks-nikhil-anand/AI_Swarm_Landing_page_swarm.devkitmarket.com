@@ -289,8 +289,10 @@ export function SwarmCanvas({ className = "" }: { className?: string }) {
           ddx /= d;
           ddy /= d;
         }
-        gvx[g] += ddx * size * 0.8;
-        gvy[g] += ddy * size * 0.8;
+        // A fresh split launches hard; re-clicking while split nudges instead of stacking.
+        const kick = size * (alreadySplit ? 0.35 : 0.8);
+        gvx[g] += ddx * kick;
+        gvy[g] += ddy * kick;
         goalAt[g] = time; // pick a new wander goal right away
       }
       // Kick particles near the click so the burst reads as an explosion from that point.
@@ -359,6 +361,19 @@ export function SwarmCanvas({ className = "" }: { className?: string }) {
         }
         gx[g] += gvx[g] * dt;
         gy[g] += gvy[g] * dt;
+        // Hard wall: a centre never leaves the sphere; it bounces back inward.
+        const wx = gx[g] - c, wy = gy[g] - c;
+        const wd = Math.hypot(wx, wy);
+        if (wd > R * 0.75) {
+          const nx = wx / wd, ny = wy / wd;
+          gx[g] = c + nx * R * 0.75;
+          gy[g] = c + ny * R * 0.75;
+          const out = gvx[g] * nx + gvy[g] * ny;
+          if (out > 0) {
+            gvx[g] -= 1.6 * out * nx;
+            gvy[g] -= 1.6 * out * ny;
+          }
+        }
       }
     }
 
@@ -379,6 +394,7 @@ export function SwarmCanvas({ className = "" }: { className?: string }) {
       const reach = size * 0.17;
       const push = size * 9;
       const swarmR = size * 0.07;
+      const maxSpeed = size * 1.1;
 
       for (let i = 0; i < nLetters; i++) {
         let tx: number, ty: number;
@@ -404,6 +420,13 @@ export function SwarmCanvas({ className = "" }: { className?: string }) {
         }
         vx[i] += ax * dt;
         vy[i] += ay * dt;
+        // Speed cap: stacked click kicks can't fling particles off the canvas.
+        const sp = vx[i] * vx[i] + vy[i] * vy[i];
+        if (sp > maxSpeed * maxSpeed) {
+          const f = maxSpeed / Math.sqrt(sp);
+          vx[i] *= f;
+          vy[i] *= f;
+        }
         px[i] += vx[i] * dt;
         py[i] += vy[i] * dt;
       }
@@ -579,29 +602,6 @@ export function SwarmCanvas({ className = "" }: { className?: string }) {
 
     canvas.addEventListener("pointermove", onMove);
     canvas.addEventListener("pointerleave", onLeave);
-
-    // TEMP-DEBUG (remove after verification)
-    (window as unknown as Record<string, unknown>).__swarm = {
-      advance(sec: number) {
-        const n = Math.round(sec * 60); let worst = 0;
-        for (let i = 0; i < n; i++) { const a = performance.now(); time += 1 / 60; step(1 / 60); worst = Math.max(worst, performance.now() - a); }
-        const t = performance.now(); draw(); return { worstStepMs: worst, drawMs: performance.now() - t };
-      },
-      split: (x: number, y: number) => split(x, y),
-      state: () => {
-        let maxV = 0, outside = 0; const c = size / 2, R = size * 0.44;
-        for (let i = 0; i < nLetters; i++) { maxV = Math.max(maxV, Math.hypot(vx[i], vy[i])); if (Math.hypot(px[i] - c, py[i] - c) > R * 1.15) outside++; }
-        const minGap = (() => { let m = 1e9; for (let g = 0; g < nGroups; g++) for (let h = g + 1; h < nGroups; h++) m = Math.min(m, Math.hypot(gx[g] - gx[h], gy[g] - gy[h])); return Math.round(m); })();
-        const maxCentre = Math.round(Math.max(...Array.from(gx, (x, g) => Math.hypot(x - c, gy[g] - c))) / R * 100);
-        return { splitMode, swell: +swell.toFixed(2), nGroups, size, maxV: Math.round(maxV), outsideSphere: outside, minGap, maxCentrePctOfR: maxCentre, finite: Array.from(px).every(Number.isFinite) };
-      },
-      strip(times: number[], w = 120) {
-        const o = document.createElement("canvas"); o.width = w * times.length; o.height = w;
-        const g = o.getContext("2d")!; g.fillStyle = dark ? "#0a0a0f" : "#fdfdfd"; g.fillRect(0, 0, o.width, w);
-        let t0 = 0; times.forEach((t, k) => { const n = Math.round((t - t0) * 60); for (let i = 0; i < n; i++) { time += 1 / 60; step(1 / 60); } t0 = t; draw(); g.drawImage(canvas!, k * w, 0, w, w); });
-        return o.toDataURL("image/jpeg", 0.75);
-      },
-    };
 
     // Sample the letters only once the body font has loaded, so the word has the right shape.
     let cancelled = false;
