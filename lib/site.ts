@@ -1,8 +1,12 @@
 const localSiteUrl = "http://localhost:3001";
 const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
+// next.config.ts fills this from VERCEL_PROJECT_PRODUCTION_URL on Vercel production builds,
+// so this only fires when neither is available (never ship a localhost canonical URL).
 if (process.env.VERCEL_ENV === "production" && !configuredSiteUrl) {
-  throw new Error("NEXT_PUBLIC_SITE_URL must be configured for a production deployment.");
+  throw new Error(
+    "NEXT_PUBLIC_SITE_URL must be configured for a production deployment (VERCEL_PROJECT_PRODUCTION_URL was not available either).",
+  );
 }
 
 function normalizeUrl(value: string) {

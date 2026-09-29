@@ -1,5 +1,10 @@
 # Click to split: plan
 
+> **Status (29 Sep 2026):** implemented in `SwarmCanvas.tsx`.
+> Two tuning changes beyond the plan:
+> - Particle speeds are capped.
+> - Small-swarm centres have a hard wall at 75% of the sphere radius, so rapid clicks stay contained.
+
 > **Goal:** clicking or tapping the swarm in the Pricing section makes the word **"Swarm"** break apart into several **small swarms**. These are little balls of particles that fly out, roam around inside the sphere, then regroup into the word.
 > **Why:** today a click only pushes nearby particles for a moment (a small ripple), which is easy to miss. Splitting into small swarms is a visible, satisfying reaction, and it tells the product story: one team splitting into specialist agents.
 > **File:** `components/landing/ui/SwarmCanvas.tsx` only. The Pricing layout doesn't change.
