@@ -1,4 +1,18 @@
+import { collaborators, team } from "@/components/landing/data/content";
 import { site } from "@/lib/site";
+
+const personId = (name: string) => `${site.url}/#${name.toLowerCase().replace(/\s+/g, "-")}`;
+
+/** The people shown in the homepage "The team" section; mirrors only what the page states. */
+const people = collaborators.map((person) => ({
+  "@type": "Person",
+  "@id": personId(person.name),
+  name: person.name,
+  jobTitle: person.role,
+  image: `${site.url}${person.photo}`,
+  worksFor: { "@id": `${site.url}/#employer` },
+  sameAs: person.socials.map((social) => social.href),
+}));
 
 const data = {
   "@context": "https://schema.org",
@@ -54,7 +68,15 @@ const data = {
         availability: "https://schema.org/PreOrder",
       },
       publisher: { "@id": `${site.url}/#organization` },
+      creator: collaborators.map((person) => ({ "@id": personId(person.name) })),
     },
+    {
+      "@type": "Organization",
+      "@id": `${site.url}/#employer`,
+      name: team.company,
+      address: { "@type": "PostalAddress", addressLocality: "Bengaluru", addressCountry: "IN" },
+    },
+    ...people,
   ],
 };
 
