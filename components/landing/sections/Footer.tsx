@@ -31,7 +31,7 @@ export function Footer() {
 
         <div className="mt-10 flex flex-col justify-between gap-2 border-t border-line pt-5 font-code text-[11px] max-xl:text-xs text-dim sm:mt-12 sm:flex-row lg:mt-auto">
           <span>© 2026 AI Swarm · a DevKit Market product</span>
-          <span>Built by a developer · for developers</span>
+          <a href="#team" className="hover:text-fg">Built by Nikhil Anand &amp; Tripti Shakya</a>
         </div>
       </div>
     </footer>
