@@ -1,0 +1,236 @@
+"use client";
+
+import { useState } from "react";
+import { demoPresets, type DemoAgent, type DemoPreset } from "../data/content";
+import { icons } from "../data/icons";
+import { statusTones } from "../data/tones";
+import { Icon } from "../ui/Icon";
+import { AvailabilityBadge, ProgressBar, StatusBadge } from "../ui/StatusBadge";
+import { TrafficLights } from "../ui/WindowFrame";
+
+/** Interactive "Try a task" window. Pre-recorded runs — no model call. */
+export function HeroDemo() {
+  const [selected, setSelected] = useState(0);
+  const preset = demoPresets[selected];
+
+  return (
+    <div className="mt-10 w-full max-w-[1200px] overflow-hidden rounded-3xl border border-edge bg-code shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25),0_0_50px_rgba(124,111,247,0.12)] lg:mt-16">
+      <div className="flex h-10 items-center justify-between border-b border-edge px-4 font-code xl:h-11 xl:px-[18px]">
+        <span className="hidden xl:block">
+          <TrafficLights />
+        </span>
+        <span className="text-xs text-fg-2">swarm run · {preset.slug}</span>
+        <span className="text-[11px] max-xl:text-xs text-dim">preview</span>
+      </div>
+
+      <div className="md:grid md:grid-cols-[220px_1fr] lg:grid-cols-[300px_1fr] xl:flex xl:h-[576px]">
+        <PresetPanel selected={selected} onSelect={setSelected} preset={preset} />
+        <DesktopGraph preset={preset} />
+        <MobileGraph preset={preset} />
+      </div>
+    </div>
+  );
+}
+
+function PresetPanel({
+  selected,
+  onSelect,
+  preset,
+}: {
+  selected: number;
+  onSelect: (i: number) => void;
+  preset: DemoPreset;
+}) {
+  return (
+    <div className="flex min-w-0 flex-col px-4 pt-[18px] md:border-r md:border-edge md:p-5 lg:p-6 xl:w-[340px] xl:shrink-0 xl:p-7">
+      <div className="font-code text-[11px] tracking-[0.12em] text-brand">TRY A SAAS TASK</div>
+
+      <div className="mt-4 hidden text-[13px] text-muted md:block">Your idea</div>
+      <div className="mt-2 hidden min-h-11 rounded-xl border border-line bg-panel p-3 font-code text-xs leading-[1.55] text-fg md:block xl:p-3.5 xl:text-[13px]">
+        {preset.goal}
+      </div>
+
+      <div className="mt-6 hidden text-[13px] text-muted md:block">Templates</div>
+      {/* Phones: one swipeable row instead of wrapping onto 2–3 lines. Tablet+: a vertical list. */}
+      <div className="-mx-4 mt-3 flex snap-x scroll-px-4 gap-2 overflow-x-auto overscroll-x-contain px-4 pb-1 [mask-image:linear-gradient(to_right,black_82%,transparent)] [scrollbar-width:none] md:mx-0 md:[mask-image:none] md:mt-2 md:flex-col md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden">
+        {demoPresets.map((p, i) => {
+          const active = i === selected;
+          return (
+            <button
+              key={p.slug}
+              type="button"
+              aria-pressed={active}
+              onClick={() => onSelect(i)}
+              className={`flex shrink-0 snap-start max-xl:min-h-11 items-center justify-between gap-2 rounded-full border px-3.5 py-2 text-left text-[13px] whitespace-nowrap transition-colors md:rounded-[10px] md:py-2.5 xl:text-sm ${
+                active
+                  ? "border-brand/30 bg-brand/10 text-brand-soft"
+                  : "border-line bg-transparent text-muted hover:text-fg-2"
+              }`}
+            >
+              <span className="md:hidden">{p.mobileLabel ?? p.label}</span>
+              <span className="hidden md:inline">{p.label}</span>
+              {p.availability && p.availability !== "live" && <AvailabilityBadge value={p.availability} />}
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="mt-auto hidden pt-5 font-code text-[11px] max-xl:text-xs leading-normal text-dim md:block xl:pt-0">
+        Pre-recorded runs. No model call on page load.
+      </div>
+    </div>
+  );
+}
+
+const agentLefts = [20, 272, 524];
+
+function DesktopGraph({ preset }: { preset: DemoPreset }) {
+  return (
+    <div className="hidden grow items-center justify-center bg-dots xl:flex">
+      <div className="relative h-[500px] w-[760px]">
+        <svg width="760" height="500" viewBox="0 0 760 500" fill="none" className="absolute inset-0" aria-hidden="true">
+          <g stroke="rgba(124,111,247,0.55)" strokeWidth="1.5" strokeDasharray="4 8" className="animate-flow">
+            <path d="M380 60 L380 100" />
+            <path d="M380 152 C380 176 128 172 128 196" />
+            <path d="M380 152 L380 196" />
+            <path d="M380 152 C380 176 632 172 632 196" />
+            <path d="M128 288 C128 312 380 306 380 330" />
+            <path d="M380 288 L380 330" />
+            <path d="M632 288 C632 312 380 306 380 330" />
+            <path d="M380 394 L380 426" />
+          </g>
+        </svg>
+
+        <div className="absolute top-3.5 left-[200px] flex h-[46px] w-[360px] items-center gap-2.5 rounded-xl border border-line bg-panel px-3.5">
+          <Icon d={icons.flag} className="text-muted" />
+          <span className="font-code text-[10px] tracking-[0.1em] text-dim">IDEA</span>
+          <span className="truncate text-[13px] text-fg">{preset.short}</span>
+        </div>
+
+        <div className="absolute top-[100px] left-[270px] flex h-[52px] w-[220px] items-center gap-2.5 rounded-xl border border-brand/45 bg-panel-2 px-3.5 shadow-[0_0_30px_rgba(124,111,247,0.18)]">
+          <span className="flex size-7 items-center justify-center rounded-lg bg-brand text-white">
+            <Icon d={icons.logo} size={15} strokeWidth={1.8} />
+          </span>
+          <div className="flex flex-col gap-0.5">
+            <span className="text-sm font-medium">Planner</span>
+            <span className="font-code text-[10.5px] text-brand-soft">{preset.plan}</span>
+          </div>
+        </div>
+
+        {preset.agents.map((a, i) => (
+          <AgentNode key={`${preset.slug}-${a.name}`} agent={a} left={agentLefts[i]} />
+        ))}
+
+        <div className="absolute top-[330px] left-[272px] flex h-16 w-[216px] items-center gap-2.5 rounded-xl border border-line bg-panel px-3.5">
+          <span className="flex size-7 items-center justify-center rounded-lg bg-brand/10 text-brand-soft">
+            <Icon d={icons.shieldCheck} size={15} />
+          </span>
+          <div className="flex flex-col gap-[3px]">
+            <span className="text-sm font-medium">Fact-Checker</span>
+            <span className="font-code text-[11px] text-dim">Waiting for outputs…</span>
+          </div>
+        </div>
+
+        <div className="absolute top-[426px] left-[200px] flex h-[60px] w-[360px] items-center gap-3 rounded-xl border border-dashed border-mint/35 bg-mint/6 px-3.5">
+          <Icon d={icons.file} size={18} className="text-mint" />
+          <div className="flex flex-col gap-[3px]">
+            <span className="font-code text-[10px] tracking-[0.1em] text-mint">RESULT · AFTER REVIEW</span>
+            <span className="text-[13px] text-fg">{preset.result}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AgentNode({ agent, left }: { agent: DemoAgent; left: number }) {
+  return (
+    <div
+      className={`absolute top-[196px] flex h-[92px] w-[216px] flex-col rounded-xl border bg-panel px-3.5 py-3 ${statusTones[agent.status].card}`}
+      style={{ left }}
+    >
+      <div className="flex items-center gap-2.5">
+        <span className="flex size-7 items-center justify-center rounded-lg bg-brand/10 text-brand-soft">
+          <Icon d={agent.icon} size={15} />
+        </span>
+        <span className="grow text-sm font-medium whitespace-nowrap">{agent.name}</span>
+        <StatusBadge status={agent.status} />
+      </div>
+      <div className="mt-2.5 truncate font-code text-[11px] text-muted">{agent.line}</div>
+      <div className="mt-auto flex">
+        <ProgressBar status={agent.status} pct={agent.pct} />
+      </div>
+    </div>
+  );
+}
+
+/** Vertical dashed connector on the x = 20px line. */
+const rail = "absolute w-0 border-0 border-l-[1.5px] border-dashed border-brand/45";
+/** Stub linking a node to the one above it. Offsets are 1px smaller: they sit inside the node's border. */
+const stub = `${rail} left-[19px] -top-[13px] h-[13px] md:hidden`;
+/** Horizontal branch from the rail into an agent card, ending in a dot at the card edge. */
+const branch =
+  "absolute -left-[17px] w-[17px] border-0 border-t-[1.5px] border-dashed border-brand/45 after:absolute after:-top-[3.5px] after:-right-[3px] after:size-1.5 after:rounded-full after:bg-brand/70 md:hidden";
+
+/**
+ * Graph for screens below xl. Phones: a vertical timeline showing two agents.
+ * Tablets: the same nodes stacked full-width with the agents side by side.
+ */
+function MobileGraph({ preset }: { preset: DemoPreset }) {
+  const hidden = preset.agents.length - 2;
+  return (
+    <div className="min-w-0 px-4 pt-5 pb-5 md:bg-dots md:p-5 lg:p-6 xl:hidden">
+      <div className="relative flex flex-col gap-3">
+        <div className="relative flex flex-col gap-1 rounded-xl border border-line bg-panel px-4 py-3">
+          <span className="font-code text-[10px] tracking-[0.1em] text-dim">IDEA</span>
+          <span className="text-[13px] text-fg">{preset.short}</span>
+        </div>
+
+        <div className="relative flex items-center justify-between gap-3 rounded-xl border border-brand/45 bg-panel-2 px-4 py-3">
+          <span aria-hidden="true" className={stub} />
+          <span className="text-sm font-medium">Planner</span>
+          <span className="font-code text-xs text-brand-soft">{preset.plan}</span>
+        </div>
+
+        {/* Phones: agents branch off a dashed rail under the Planner. Tablets: three across. */}
+        <div className="relative flex flex-col gap-3 pl-9 md:grid md:grid-cols-3 md:pl-0">
+          <span aria-hidden="true" className={`${rail} left-5 -top-3 -bottom-3 md:hidden`} />
+          {preset.agents.map((a, i) => (
+            <div
+              key={`${preset.slug}-${a.name}`}
+              className={`relative flex-col gap-2.5 rounded-xl border bg-panel px-4 py-3.5 ${
+                i >= 2 ? "hidden md:flex" : "flex"
+              } ${statusTones[a.status].card}`}
+            >
+              <span aria-hidden="true" className={`${branch} top-[23px]`} />
+              <div className="flex flex-wrap items-center justify-between gap-1.5">
+                <span className="text-sm font-medium">{a.name}</span>
+                <StatusBadge status={a.status} className="px-[7px]" />
+              </div>
+              <span className="font-code text-xs text-muted">{a.line}</span>
+              <div className="mt-auto flex">
+                <ProgressBar status={a.status} pct={a.pct} />
+              </div>
+            </div>
+          ))}
+          {hidden > 0 && (
+            <span className="relative py-1 pl-3 font-code text-xs text-dim md:hidden">
+              <span aria-hidden="true" className={`${branch} top-1/2 !-left-4 !w-4`} />+ {hidden} more agent{hidden === 1 ? "" : "s"} in this run
+            </span>
+          )}
+        </div>
+
+        <div className="relative flex items-center justify-between gap-3 rounded-xl border border-line bg-panel px-4 py-3">
+          <span className="text-sm font-medium">Fact-Checker</span>
+          <span className="font-code text-xs text-dim">Waiting for outputs…</span>
+        </div>
+
+        <div className="relative flex flex-col gap-1 rounded-xl border border-dashed border-mint/35 bg-mint/6 px-4 py-3">
+          <span aria-hidden="true" className={stub} />
+          <span className="font-code text-[10px] tracking-[0.1em] text-mint">RESULT · AFTER REVIEW</span>
+          <span className="text-[13px] text-fg">{preset.result}</span>
+        </div>
+      </div>
+    </div>
+  );
+}
