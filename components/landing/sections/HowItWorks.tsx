@@ -22,10 +22,10 @@ export function HowItWorks() {
         eyebrow="HOW IT WORKS"
         title={
           <>
-            From idea to <Accent>evidence and a plan.</Accent>
+            One Idea. Multiple Agents. <Accent>One Research Report.</Accent>
           </>
         }
-        description="Describe the idea once. Review the research plan, watch the specialist analysis, then download the evidence and build-ready specification."
+        description="Give AI Swarm a SaaS idea. The swarm breaks the problem into research tasks, assigns them to specialized agents, collects evidence, cross-checks findings, and combines everything into one structured result."
       />
 
       <div className="mt-8 flex flex-wrap items-center gap-2 sm:mt-10 sm:gap-2.5">
