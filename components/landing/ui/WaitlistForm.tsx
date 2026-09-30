@@ -76,7 +76,7 @@ export function WaitlistForm({ source = "landing_page" }: { source?: string }) {
           disabled={pending || succeeded}
           className="min-h-12 shrink-0 rounded-xl bg-brand-strong px-6 text-[15px] font-medium text-white shadow-[0_8px_24px_rgba(124,111,247,0.3)] transition-colors hover:bg-brand disabled:cursor-not-allowed disabled:opacity-70"
         >
-          {pending ? "Joining…" : succeeded ? "You’re on the list" : "Notify me at launch →"}
+          {pending ? "Joining…" : succeeded ? "You’re on the list" : "Join the Private Beta →"}
         </button>
       </div>
       <p
