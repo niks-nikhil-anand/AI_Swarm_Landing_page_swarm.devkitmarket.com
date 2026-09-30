@@ -3,15 +3,18 @@ import { availabilityTones, statusTones, type Availability, type RunStatus } fro
 /** LIVE / SOON / COMING LATER pill for product stages that ship by phase. */
 export function AvailabilityBadge({
   value,
+  label,
   className = "px-[7px] tracking-[0.06em]",
 }: {
   value: Availability;
+  /** Overrides the default LIVE / SOON / COMING LATER text; the colour still follows `value`. */
+  label?: string;
   className?: string;
 }) {
   const tone = availabilityTones[value];
   return (
     <span className={`rounded-full border py-0.5 font-code text-[10px] whitespace-nowrap ${tone.badge} ${className}`}>
-      {tone.label}
+      {label ?? tone.label}
     </span>
   );
 }
