@@ -14,13 +14,13 @@ export function Collaborators() {
   return (
     <Section id="team">
       <SectionHeader
-        eyebrow="THE TEAM"
+        eyebrow="BUILT BY"
         title={
           <>
-            Built by two developers, <Accent>not a faceless AI company.</Accent>
+            Built by Nikhil Anand. <Accent>Powered by DevKitMarket.</Accent>
           </>
         }
-        description="AI Swarm is designed and built by two engineers at Rubenius Interior Wellbeing in Bengaluru. We use it on our own ideas first."
+        description="AI Swarm is a product from DevKitMarket, a software development and developer-product platform focused on practical software products, tools, and AI-powered systems. DevKitMarket builds software. AI Swarm helps decide what software to build."
       />
 
       <div className="mt-8 grid grid-cols-1 gap-3 sm:mt-10 sm:gap-5 md:grid-cols-2">
