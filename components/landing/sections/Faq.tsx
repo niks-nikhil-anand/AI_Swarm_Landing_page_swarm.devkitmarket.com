@@ -21,7 +21,7 @@ export function Faq() {
           size="lg"
           title={
             <>
-              SaaS validation questions, <Accent>answered.</Accent>
+              Frequently Asked <Accent>Questions.</Accent>
             </>
           }
         />
