@@ -18,13 +18,13 @@ export function AppBuildersSkip() {
   return (
     <Section id="compare">
       <SectionHeader
-        eyebrow="WHAT APP BUILDERS SKIP"
+        eyebrow="WHAT MAKES AI SWARM DIFFERENT"
         title={
           <>
-            App builders start at code. <Accent>We start at the idea.</Accent>
+            Not Just Another AI Chatbot. <Accent>A Research Workflow.</Accent>
           </>
         }
-        description="Turning a prompt into an app is the crowded middle. Phase 1 focuses on the work before code: whether the opportunity is real and what is actually worth building."
+        description="A chatbot gives you an answer. AI app builders help you build. AI Swarm helps you understand what to build first."
       />
 
       <Card className="mt-12 overflow-hidden p-0">
