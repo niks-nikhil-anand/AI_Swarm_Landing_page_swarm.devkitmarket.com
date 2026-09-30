@@ -30,7 +30,7 @@ export function Logo({
         AI <em className="text-brand-soft not-italic">Swarm</em>
       </span>
       {byline && (
-        <span className="hidden font-code text-[10px] text-dim sm:inline">by DevKit Market</span>
+        <span className="hidden font-code text-[10px] text-dim sm:inline">by DevKitMarket</span>
       )}
     </Link>
   );
