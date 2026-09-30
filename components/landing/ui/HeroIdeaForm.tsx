@@ -41,7 +41,7 @@ export function HeroIdeaForm() {
           onClick={continueToWaitlist}
           className="min-h-12 shrink-0 rounded-xl bg-brand-strong px-6 text-[15px] font-medium text-white shadow-[0_8px_24px_rgba(124,111,247,0.3)] transition-colors hover:bg-brand"
         >
-          Join the waitlist →
+          Join the Private Beta →
         </button>
       </div>
     </div>
