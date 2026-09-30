@@ -12,9 +12,9 @@ export function Footer() {
               <span className="text-[15px] font-medium">AI Swarm</span>
             </div>
             <p className="m-0 max-w-[300px] text-[13px] leading-[1.65] text-muted">
-              Validate your SaaS idea, understand the market and leave with a build-ready product plan.
+              Research. Validate. Plan. Build.
             </p>
-            <span className="font-code text-xs text-dim">A DevKit Market product</span>
+            <span className="font-code text-xs text-dim">Built by Nikhil Anand · DevKitMarket</span>
           </div>
 
           {footerColumns.map((column) => (
@@ -30,8 +30,8 @@ export function Footer() {
         </div>
 
         <div className="mt-10 flex flex-col justify-between gap-2 border-t border-line pt-5 font-code text-[11px] max-xl:text-xs text-dim sm:mt-12 sm:flex-row lg:mt-auto">
-          <span>© 2026 AI Swarm · a DevKit Market product</span>
-          <a href="#team" className="hover:text-fg">Built by Nikhil Anand &amp; Tripti Shakya</a>
+          <span>© 2026 DevKitMarket. All rights reserved.</span>
+          <a href="#team" className="hover:text-fg">Built by Nikhil Anand · DevKitMarket</a>
         </div>
       </div>
     </footer>
