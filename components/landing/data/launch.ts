@@ -7,9 +7,9 @@ export type LaunchStatus = "scheduled" | "open" | "closed";
  */
 export const phaseOneLaunch = {
   status: "scheduled" as LaunchStatus,
-  label: "Phase 1 private beta",
+  label: "Private beta",
   ctaLabel: "Start validating",
-  scheduledCtaLabel: "Join the waitlist",
+  scheduledCtaLabel: "Join the Private Beta",
   ctaHref: "#waitlist",
   countdownCtaHref: "#waitlist",
   /** Full ISO UTC timestamp. 28 Nov 2026, 10:00 IST. */
