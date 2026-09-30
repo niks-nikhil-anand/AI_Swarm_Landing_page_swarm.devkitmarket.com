@@ -7,21 +7,18 @@ import { SectionHeader } from "../ui/SectionHeader";
 import { AvailabilityBadge } from "../ui/StatusBadge";
 
 export function Stages() {
-  const roadmapOrder = ["validate", "plan", "launch", "build", "operate"];
-  const roadmapStages = [...stages].sort(
-    (a, b) => roadmapOrder.indexOf(a.key) - roadmapOrder.indexOf(b.key),
-  );
+  const roadmapStages = stages;
 
   return (
     <Section id="roadmap">
       <SectionHeader
-        eyebrow="PRODUCT ROADMAP"
+        eyebrow="ROADMAP"
         title={
           <>
-            Validate and Plan launch first. <Accent>Build comes later.</Accent>
+            From One Product to <Accent>an AI Product Team.</Accent>
           </>
         }
-        description="The private beta starts with the decisions that come before code. Later releases extend the same context into launch preparation, building and ongoing operation."
+        description="AI Swarm starts with SaaS idea validation. The long-term vision goes further: an AI product team that works alongside you from idea to operation."
       />
 
       {/*
@@ -48,11 +45,11 @@ export function Stages() {
                 <span className={`font-code text-[11px] ${tone.text}`}>
                   {stage.n} · {stage.name.toUpperCase()}
                 </span>
-                <AvailabilityBadge value={stageAvailability[stage.key]} />
+                <AvailabilityBadge value={stageAvailability[stage.key]} label={stage.badge.toUpperCase()} />
               </div>
               <p className="mt-4 text-sm leading-[1.6] text-muted">{stage.summary}</p>
               <ul className="m-0 mt-5 flex list-none flex-col gap-2 border-t border-line p-0 pt-4 text-[13px] leading-[1.5] text-fg-2">
-                {stage.deliverables.slice(0, 3).map((deliverable) => (
+                {stage.deliverables.map((deliverable) => (
                   <li key={deliverable}>· {deliverable}</li>
                 ))}
               </ul>
