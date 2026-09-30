@@ -7,33 +7,33 @@ import { SectionHeader } from "../ui/SectionHeader";
 
 const deliverables = [
   {
-    name: "Market report",
-    body: "Market shape, customer segments, demand signals and the assumptions that still need testing.",
+    name: "Market Research Report",
+    body: "Understand your market before committing to the build: market overview, target audience, market trends, demand signals, customer problems, opportunities, risks, and research evidence.",
     icon: icons.chart,
   },
   {
-    name: "Competitor matrix",
-    body: "Products, positioning, features, prices, strengths and gaps in a spreadsheet you can filter.",
+    name: "Competitor Intelligence",
+    body: "Know who you're competing with: direct and indirect competitors, product and feature comparison, pricing, positioning, target customers, strengths, and gaps.",
     icon: icons.target,
   },
   {
-    name: "Pricing analysis",
-    body: "Comparable plans, packaging patterns and a reasoned starting hypothesis for your offer.",
+    name: "Pricing Analysis",
+    body: "Understand how similar products monetize: pricing models, subscription structures, free vs paid plans, competitor pricing, feature differences, and positioning opportunities.",
     icon: icons.coin,
   },
   {
-    name: "SEO opportunities",
-    body: "Search themes, intent and early content opportunities grounded in the market research.",
+    name: "SEO & Growth Opportunities",
+    body: "Discover how people search for problems related to your product: search and content opportunities, relevant keywords, competitor SEO signals, acquisition opportunities, and landing-page ideas.",
     icon: icons.trend,
   },
   {
-    name: "Decision summary",
-    body: "A direct go, pivot or no-go recommendation with evidence, risks and next experiments.",
+    name: "Validation Summary",
+    body: "The research condensed into a clear decision-support document: what looks promising, what needs further validation, major risks, competitive pressure, opportunities, and open questions.",
     icon: icons.flag,
   },
   {
-    name: "PRD and MVP scope",
-    body: "Personas, journeys, requirements, priorities and a deliberately constrained first release.",
+    name: "From Research to PRD",
+    body: "Validated findings turned into a product plan: product definition, MVP scope, product requirements, technical direction, and launch planning.",
     icon: icons.file,
   },
 ];
@@ -42,13 +42,13 @@ export function Deliverables() {
   return (
     <Section id="deliverables">
       <SectionHeader
-        eyebrow="WHAT YOU RECEIVE"
+        eyebrow="WHAT YOU GET"
         title={
           <>
-            SaaS idea validation. <Accent>From competitors to PRD.</Accent>
+            AI Swarm Doesn’t Just Give You <Accent>a Chat Response.</Accent>
           </>
         }
-        description="One idea becomes a source-backed research pack and a build-ready product plan. Use the files with AI Swarm, your own team, or any development tool."
+        description="It produces structured research that you can actually use. AI Swarm doesn’t decide for you. It gives you better information to make the decision."
       />
 
       <div className="mt-8 grid grid-cols-1 gap-3 sm:mt-10 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
