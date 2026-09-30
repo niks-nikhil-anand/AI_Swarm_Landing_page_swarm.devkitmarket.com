@@ -12,13 +12,13 @@ export function Pricing() {
     <Section id="pricing" className="flex flex-col items-center">
       <SectionHeader
         align="center"
-        eyebrow="PRIVATE BETA PRICING"
+        eyebrow="PRIVATE BETA"
         title={
           <>
-            Validate before you <Accent>pay to build.</Accent>
+            Be Among the First <Accent>to Use AI Swarm.</Accent>
           </>
         }
-        description="Phase 1 is free during the private beta. No placeholder price, no subscription and no credit card required."
+        description="We’re opening AI Swarm to a limited group of early users before the public launch. Get early access and help shape the product."
       />
 
       {/* Pricing card on the left, live swarm on the right (below the card on smaller screens). */}
@@ -30,7 +30,7 @@ export function Pricing() {
                 <h3 className="text-lg font-semibold text-fg">{tier.name}</h3>
                 {tier.featured && (
                   <span className="rounded-full border border-brand/30 bg-brand/10 px-2.5 py-1 font-code text-[10px] tracking-[0.08em] text-brand-soft">
-                    COMPLETE PACK
+                    EARLY ACCESS
                   </span>
                 )}
               </div>
