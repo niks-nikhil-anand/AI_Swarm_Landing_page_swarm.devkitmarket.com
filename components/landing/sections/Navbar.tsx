@@ -164,7 +164,7 @@ export function Navbar() {
               onClick={(event) => goTo(event, routes.navbar)}
               className="hidden items-center justify-center rounded-[10px] bg-brand px-[18px] py-2 text-[13.5px] font-medium text-white shadow-lg shadow-brand/20 transition-all hover:-translate-y-px hover:bg-[#8d82f8] max-lg:py-2.5 sm:inline-flex"
             >
-              Join the waitlist
+              Join the Private Beta
             </Link>
             <button
               type="button"
@@ -245,7 +245,7 @@ export function Navbar() {
               onClick={(event) => goTo(event, routes.navbar)}
               className="w-full rounded-[10px] bg-brand py-3.5 text-center text-[14.5px] font-semibold text-white shadow-lg shadow-brand/20 transition-all hover:bg-[#8d82f8]"
             >
-              Join the waitlist
+              Join the Private Beta
             </Link>
           </div>
         </div>
