@@ -43,7 +43,7 @@ function PresetPanel({
 }) {
   return (
     <div className="flex min-w-0 flex-col px-4 pt-[18px] md:border-r md:border-edge md:p-5 lg:p-6 xl:w-[340px] xl:shrink-0 xl:p-7">
-      <div className="font-code text-[11px] tracking-[0.12em] text-brand">TRY A SAAS TASK</div>
+      <div className="font-code text-[11px] tracking-[0.12em] text-brand">SEE THE SWARM WORK</div>
 
       <div className="mt-4 hidden text-[13px] text-muted md:block">Your idea</div>
       <div className="mt-2 hidden min-h-11 rounded-xl border border-line bg-panel p-3 font-code text-xs leading-[1.55] text-fg md:block xl:p-3.5 xl:text-[13px]">
