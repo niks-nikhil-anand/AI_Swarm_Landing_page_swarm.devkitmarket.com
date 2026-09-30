@@ -4,9 +4,9 @@ import { Eyebrow } from "../ui/SectionHeader";
 import { WaitlistForm } from "../ui/WaitlistForm";
 
 const corner = "absolute hidden size-3.5 border-brand/50 sm:block";
-const flow = ["idea", "research", "evidence", "decision", "PRD", "MVP scope"];
+const flow = ["idea", "research", "validate", "plan", "build", "launch"];
 /** Phones get the three steps that tell the story; the full chain wraps onto 3 lines there. */
-const shortFlow = ["idea", "evidence", "PRD"];
+const shortFlow = ["idea", "research", "decide"];
 
 export function FinalCta() {
   return (
@@ -23,13 +23,13 @@ export function FinalCta() {
           <span aria-hidden="true" className={`${corner} right-5 bottom-5 border-r border-b`} />
 
           <div className="relative">
-            <Eyebrow>VALIDATE + PLAN</Eyebrow>
+            <Eyebrow>PRIVATE BETA</Eyebrow>
           </div>
           <h2 className="relative mt-4 text-center font-display text-[32px] leading-[1.08] font-normal tracking-[-0.03em] min-[375px]:text-[38px] md:text-[48px] lg:text-[58px]">
-            Make the decision <Accent strong>before the build.</Accent>
+            Don’t Build the Idea Yet. <Accent strong>Research It First.</Accent>
           </h2>
           <p className="relative mt-4 max-w-[520px] text-center text-[15px] leading-[1.7] text-muted sm:mt-5 sm:text-base">
-            Get the market evidence, competitor analysis and product plan you need to move forward—or change direction—with confidence.
+            Give your idea to the swarm. Let the agents research the market, competitors, customers, pricing, SEO opportunities, and product requirements. Then decide what to build.
           </p>
           <div className="relative mt-7 flex w-full justify-center sm:mt-9">
             <WaitlistForm source="final_cta" />
