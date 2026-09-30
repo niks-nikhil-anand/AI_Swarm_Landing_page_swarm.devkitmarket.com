@@ -8,23 +8,23 @@ import { SectionHeader } from "../ui/SectionHeader";
 
 const method = [
   {
-    name: "Start with questions",
-    body: "The team turns your idea into a research plan you can review before work begins.",
+    name: "Evidence",
+    body: "Information supported by a source.",
     icon: icons.flag,
   },
   {
-    name: "Use visible sources",
-    body: "Market, competitor, pricing, search and community findings link back to their evidence.",
+    name: "Inference",
+    body: "A conclusion derived from available evidence.",
     icon: icons.link,
   },
   {
-    name: "Separate specialist views",
-    body: "Focused agents analyze different parts of the opportunity instead of producing one generic answer.",
+    name: "Unknown",
+    body: "Something that requires additional validation.",
     icon: icons.users,
   },
   {
-    name: "Check the claims",
-    body: "A verification pass flags weak evidence, conflicts, assumptions and claims that need human testing.",
+    name: "Inspect the research",
+    body: "Important findings connect to the underlying research. This makes AI Swarm a research system, not just a text generator.",
     icon: icons.shieldCheck,
   },
 ];
@@ -33,13 +33,13 @@ export function Methodology() {
   return (
     <Section id="methodology">
       <SectionHeader
-        eyebrow="HOW THE RESEARCH WORKS"
+        eyebrow="RESEARCH WITH EVIDENCE"
         title={
           <>
-            SaaS market research, <Accent>with sources attached.</Accent>
+            Research First. Evidence Second. <Accent>Conclusions Third.</Accent>
           </>
         }
-        description="AI can organize evidence and expose blind spots. It cannot replace customer conversations, experiments or actual sales. The report makes that boundary explicit."
+        description="AI-generated answers can sound convincing even when they’re wrong. Instead of “The market is growing rapidly,” AI Swarm helps you understand what evidence supports it."
       />
 
       <div className="mt-8 grid grid-cols-1 gap-3 sm:mt-10 sm:gap-5 md:grid-cols-2">
@@ -60,14 +60,14 @@ export function Methodology() {
         <div className="lg:w-[34%]">
           <div className="font-code text-[11px] tracking-[0.12em] text-brand">LIMITS</div>
           <h3 className="mt-3 font-display text-[22px] leading-tight font-normal text-fg sm:text-2xl">
-            What validation cannot prove
+            Research can’t guarantee success
           </h3>
         </div>
         <div className="grid grow grid-cols-1 gap-3 text-sm text-fg-2 sm:grid-cols-2">
-          <CheckItem>Guaranteed demand or revenue</CheckItem>
-          <CheckItem>Product-market fit before launch</CheckItem>
-          <CheckItem>What customers will pay without testing</CheckItem>
-          <CheckItem>Whether execution will beat the market</CheckItem>
+          <CheckItem>Product-market fit</CheckItem>
+          <CheckItem>Business success</CheckItem>
+          <CheckItem>It reduces uncertainty</CheckItem>
+          <CheckItem>The decision stays yours</CheckItem>
         </div>
       </Card>
     </Section>
