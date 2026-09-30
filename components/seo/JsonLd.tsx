@@ -25,7 +25,7 @@ const data = {
       logo: `${site.url}/apple-icon`,
       parentOrganization: {
         "@type": "Organization",
-        name: "DevKit Market",
+        name: "DevKitMarket",
       },
       ...(site.contactEmail
         ? {
