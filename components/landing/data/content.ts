@@ -29,7 +29,7 @@ export const navLinks: NavLink[] = [
   { label: "Home", href: "/", section: "product" },
   { label: "What you get", href: "/#deliverables", section: "deliverables" },
   { label: "How it works", href: "/#how", section: "how" },
-  { label: "Pricing", href: "/#pricing", section: "pricing" },
+  { label: "Private beta", href: "/#pricing", section: "pricing" },
   { label: "Roadmap", href: "/#roadmap", section: "roadmap", secondary: true },
   { label: "FAQ", href: "/#faq", section: "faq", secondary: true },
   { label: "Methodology", href: "/methodology", secondary: true },
@@ -47,7 +47,7 @@ export type StageKey = "validate" | "plan" | "build" | "launch" | "operate";
 export const stageAvailability = {
   validate: "soon",
   plan: "soon",
-  launch: "soon",
+  launch: "later",
   build: "later",
   operate: "later",
 } as const satisfies Record<StageKey, Availability>;
@@ -62,6 +62,8 @@ export type Stage = {
   summary: string;
   agents: string[];
   deliverables: string[];
+  /** Roadmap badge text (e.g. "Private Beta", "Future"); tone still comes from stageAvailability. */
+  badge: string;
   /** Real sample output. Leave unset until a genuine file exists in /public/samples. */
   sample?: { label: string; href: string };
 };
@@ -72,45 +74,50 @@ export const stages: Stage[] = [
     n: "01",
     name: "Validate",
     hue: "mint",
-    summary: "Is this worth building? Evidence from the market, not a hunch.",
-    agents: ["Market", "Competitor", "Customer", "Community", "Pricing", "SEO", "Technical", "Fact-Checker"],
-    deliverables: ["Validation report (PDF/DOCX)", "Competitor matrix (XLSX)", "SEO keyword list", "Go / pivot / no-go summary"],
+    badge: "Private Beta",
+    summary: "Research and validate product opportunities.",
+    agents: ["Market", "Competitor", "Customer", "Pricing", "SEO", "Evidence"],
+    deliverables: ["Market research", "Competitor analysis", "Customer research", "Pricing research", "SEO research", "Evidence-backed reports"],
   },
   {
     key: "plan",
     n: "02",
     name: "Plan",
     hue: "sky",
-    summary: "Turn the research into a spec you could hand to any team.",
-    agents: ["Product Manager", "UX Researcher", "Solution Architect", "Database Architect", "Security Architect"],
-    deliverables: ["PRD, feature spec and MVP scope", "Personas and user journeys", "Architecture, DB schema, API spec", "Pitch deck (PPTX)"],
+    badge: "Coming Next",
+    summary: "Turn research into product requirements and MVP plans.",
+    agents: ["Product", "Strategy"],
+    deliverables: ["PRD generation", "MVP planning", "Feature prioritization", "Product strategy", "Technical planning"],
   },
   {
     key: "build",
     n: "03",
     name: "Build",
     hue: "amber",
-    summary: "Design, code, test and deploy, with agents that run what they write.",
-    agents: ["Design", "Frontend", "Backend", "Database", "Auth", "Payments", "AI", "QA", "Security", "DevOps"],
-    deliverables: ["Design system and code prototype", "GitHub repo you own", "Test and browser QA report", "Deploy to Vercel, AWS or Google Cloud"],
+    badge: "Future",
+    summary: "Assist with turning product plans into software.",
+    agents: [],
+    deliverables: ["AI-assisted development", "Code generation", "Architecture", "Testing", "Deployment"],
   },
   {
     key: "launch",
     n: "04",
     name: "Launch",
     hue: "pink",
-    summary: "Everything the launch needs, drafted and ready for your approval.",
-    agents: ["SEO", "Content", "Docs", "Social", "Creative", "Email", "Launch Manager"],
-    deliverables: ["Landing copy, SEO meta, sitemap", "Blog posts and product docs", "Product Hunt, Reddit, LinkedIn, X drafts", "Email sequence and launch checklist"],
+    badge: "Future",
+    summary: "Help prepare positioning, content, SEO, and acquisition.",
+    agents: [],
+    deliverables: ["Launch planning", "SEO", "Content", "Distribution", "Growth experiments"],
   },
   {
     key: "operate",
     n: "05",
     name: "Operate",
     hue: "brand",
-    summary: "After launch, a weekly loop that watches the numbers and proposes fixes.",
-    agents: ["Analytics", "Growth", "Support", "Maintenance"],
-    deliverables: ["Weekly metrics report", "Anomaly alerts", "Proposed copy, page and code fixes"],
+    badge: "Long Term",
+    summary: "Eventually support the ongoing product lifecycle.",
+    agents: [],
+    deliverables: ["Analytics", "Monitoring", "Optimization", "Customer insights", "Product iteration"],
   },
 ];
 
@@ -336,7 +343,7 @@ const agent = (
   pct: number,
 ): DemoAgent => ({ name, icon, status, line, pct });
 
-const flagshipIdea = "an AI interview-prep SaaS for developers";
+const flagshipIdea = "an AI interview preparation platform for software developers";
 
 export const demoPresets: DemoPreset[] = [
   {
@@ -428,38 +435,39 @@ export const steps: {
 }[] = [
   {
     n: "01",
-    title: "Describe your idea",
-    body: "One sentence is enough. Add notes, links or an existing repo if you have them.",
-    code: "“AI interview-prep SaaS\nfor developers.”",
-    summary: "“AI interview-prep SaaS for developers.”",
+    title: "Validate",
+    body: "Understand whether your idea has a market, who you're competing with, and where opportunities may exist.",
+    code: "is there a market?\nwho are the competitors?\nwhere are the gaps?",
+    summary: "market? · competitors? · opportunities?",
+    stage: "validate",
   },
   {
     n: "02",
-    title: "Review the plan",
-    body: "See the research questions, specialist agents and expected outputs before the run starts.",
-    code: "market · competitors\npricing · SEO\ncustomers · technical\nfact-checking",
-    summary: "market · competitors · pricing · SEO · fact-checking",
+    title: "Research",
+    body: "Collect information from relevant sources across the web and organize it into useful evidence.",
+    code: "relevant web sources\n→ collected\n→ organized\n→ useful evidence",
+    summary: "web sources → organized evidence",
     stage: "validate",
   },
   {
     n: "03",
-    title: "Watch the analysis",
-    body: "Follow each source-backed task, finding and verification step as the team works.",
-    code: "9 competitors mapped\n12 pain points tagged\npricing compared\nclaims checked ✓",
-    summary: "9 competitors · 12 pain points · claims checked ✓",
+    title: "Analyze",
+    body: "Compare competitors, pricing, positioning, customer problems, demand signals, and market opportunities.",
+    code: "competitors · pricing\npositioning\ncustomer problems\ndemand signals",
+    summary: "competitors · pricing · positioning · demand",
     stage: "validate",
   },
   {
     n: "04",
-    title: "Download the plan",
-    body: "Get the validation report, decision summary, competitor matrix, PRD and MVP scope.",
-    code: "validation-report.pdf\ncompetitors.xlsx\nprd.docx\nmvp-scope + next steps",
-    summary: "validation-report.pdf · competitors.xlsx · prd.docx",
+    title: "Plan",
+    body: "Turn research into a structured product strategy and MVP scope.",
+    code: "product strategy\nMVP scope\nPRD\ntechnical plan",
+    summary: "product strategy · MVP scope · PRD",
     stage: "plan",
   },
 ];
 
-export const howFlow = ["Your idea", "Research plan", "Agent analysis", "Report + PRD"];
+export const howFlow = ["Your SaaS idea", "AI Swarm", "Research-backed product strategy", "MVP / PRD"];
 
 /* ---------- Live execution ---------- */
 
@@ -509,15 +517,15 @@ export const compareColumns = [
 
 export const compareRows: { name: string; ours?: boolean; cells: Coverage[] }[] = [
   { name: "AI app builders", cells: [0, 0, 0, 0] },
-  { name: "Chat assistants", cells: [1, 1, 1, 1] },
-  { name: "General AI agents", cells: [2, 1, 1, 1] },
-  { name: "AI Swarm beta", ours: true, cells: [2, 2, 2, 2] },
+  { name: "AI chatbots", cells: [1, 1, 1, 1] },
+  { name: "Collections of agents", cells: [2, 1, 1, 1] },
+  { name: "AI Swarm", ours: true, cells: [2, 2, 2, 2] },
 ];
 
 export const comparePoints = [
-  "Validate demand before committing to code",
-  "Turn the evidence into a build-ready PRD",
-  "See sources, assumptions and limits",
+  "Days or weeks of research, coordinated into one workflow",
+  "Agents that work together, not just side by side",
+  "Orchestration → Research → Evidence → Analysis → Synthesis → Product Planning",
 ];
 
 /* ---------- Opinionated stack ---------- */
@@ -557,6 +565,76 @@ export const controlItems = [
   { name: "Encryption and retention", body: "Encrypted in transit and at rest. You choose how long we keep it.", icon: icons.lock },
 ];
 
+/* ---------- Research team ---------- */
+
+export const researchAgents = [
+  { name: "Market Research Agent", body: "Researches your market, industry, trends, demand signals, and opportunities.", icon: icons.chart },
+  { name: "Competitor Agent", body: "Finds competitors, analyzes their products, pricing, positioning, features, and gaps.", icon: icons.target },
+  { name: "Customer Research Agent", body: "Identifies target users, their problems, existing solutions, and unmet needs.", icon: icons.users },
+  { name: "Pricing Agent", body: "Studies competitor pricing and helps identify potential pricing models and positioning.", icon: icons.coin },
+  { name: "SEO Agent", body: "Researches search demand, keywords, content opportunities, and organic acquisition possibilities.", icon: icons.trend },
+  { name: "Evidence Agent", body: "Connects important findings back to their sources and identifies weak or unsupported claims.", icon: icons.shieldCheck },
+  { name: "Product Agent", body: "Turns research findings into product requirements, MVP scope, features, and priorities.", icon: icons.file },
+  { name: "Strategy Agent", body: "Brings the research together into a clear product direction.", icon: icons.flag },
+];
+
+/* ---------- The problem: questions before the build ---------- */
+
+export const problemQuestions = [
+  "Is there a real market?",
+  "Who are the competitors?",
+  "What are customers already using?",
+  "What are people willing to pay?",
+  "What problems are still unsolved?",
+  "What keywords and channels can drive demand?",
+  "What should the MVP actually contain?",
+  "What should you build first?",
+];
+
+/* ---------- From research to PRD ---------- */
+
+export const prdPlan: { name: string; icon: string; items: string[] }[] = [
+  { name: "Product Definition", icon: icons.flag, items: ["Problem statement", "Target users", "Personas", "Value proposition", "Product positioning"] },
+  { name: "MVP Scope", icon: icons.target, items: ["Core features", "User journeys", "Priorities", "MVP boundaries", "Future features"] },
+  { name: "Product Requirements", icon: icons.file, items: ["Functional requirements", "User stories", "Acceptance criteria", "Product flows"] },
+  { name: "Technical Direction", icon: icons.server, items: ["Architecture considerations", "API requirements", "Data requirements", "Integration requirements"] },
+  { name: "Launch Planning", icon: icons.trend, items: ["Positioning", "Acquisition opportunities", "SEO opportunities", "Launch considerations"] },
+];
+
+/* ---------- Built for SaaS founders ---------- */
+
+export const founderMoments = [
+  { quote: "I have an idea.", answer: "Start with validation." },
+  { quote: "I found competitors.", answer: "Understand the market around them." },
+  { quote: "I know what users want.", answer: "Turn that understanding into a product plan." },
+  { quote: "I want to start building.", answer: "Start with a clearer MVP." },
+  { quote: "I want to launch.", answer: "Use the research to identify positioning and acquisition opportunities." },
+];
+
+/* ---------- Stop building blind ---------- */
+
+export const buildingBlindRisks = [
+  "The market is different than expected.",
+  "Competitors already solved the problem.",
+  "Customers don't care about the feature.",
+  "Pricing doesn't work.",
+  "The MVP is too large.",
+  "The positioning is unclear.",
+];
+
+export const saasJourney = ["Idea", "Research", "Validate", "Plan", "Build", "Launch"];
+
+/* ---------- Who it's for ---------- */
+
+export const audiences = [
+  { name: "Founders", body: "Validate and research ideas before investing heavily in development.", icon: icons.flag },
+  { name: "Indie Hackers", body: "Move from idea to MVP with a structured research process.", icon: icons.sparkle },
+  { name: "Developers", body: "Understand the market and product requirements before writing code.", icon: icons.code },
+  { name: "Product Managers", body: "Accelerate market research and early product planning.", icon: icons.layout },
+  { name: "Agencies", body: "Research client ideas and create structured product discovery reports.", icon: icons.building },
+  { name: "Startup Teams", body: "Create a shared research foundation before making product decisions.", icon: icons.users },
+];
+
 /* ---------- Pricing ---------- */
 
 export type PricingTier = {
@@ -575,15 +653,15 @@ export type PricingTier = {
 
 export const pricingTiers: PricingTier[] = [
   {
-    name: "Private beta",
-    desc: "A complete validation and planning pack before you commit to building.",
-    price: "Free",
-    unit: "during beta",
-    note: "Pricing will be announced before beta ends",
-    cta: "Join the waitlist",
+    name: "Private Beta Launch",
+    desc: "We're opening AI Swarm to a limited group of early users before the public launch.",
+    price: "Nov 28",
+    unit: "2026 · 10:00 IST",
+    note: "Early users can help us improve",
+    cta: "Join the Private Beta",
     href: routes.pricing,
     featured: true,
-    features: ["Full validation report", "Competitor matrix (XLSX)", "SEO keyword list", "PRD, personas, MVP scope", "Architecture and DB schema", "Pitch deck (PPTX)"],
+    features: ["Research quality", "Agent workflows", "Reports", "Product planning", "User experience", "New AI agents"],
   },
 ];
 
@@ -597,17 +675,16 @@ export const creditEstimate = [
 /* ---------- FAQ ---------- */
 
 export const faqs = [
-  { q: "What is AI Swarm?", a: "An AI product team for validating and planning a SaaS. Specialist agents research the market, compare competitors, test pricing and turn the evidence into a PRD and MVP scope." },
-  { q: "When does the private beta open?", a: "The Validate + Plan private beta is scheduled for 28 November 2026 at 10:00 IST. Join the waitlist and we’ll send one email when access opens." },
-  { q: "What does the validation include?", a: "A market overview, competitor matrix, pricing observations, customer and community signals, SEO opportunities, technical constraints, and a go, pivot, or no-go recommendation with sources." },
-  { q: "Is my SaaS idea confidential?", a: "Your idea and generated files are not published. Data is encrypted in transit and at rest, and retention controls are part of the private-beta workflow." },
-  { q: "How long does a validation run take?", a: "Timing depends on the research scope and the sources available. Before a run begins, you’ll see the planned tasks and expected outputs rather than an unsupported fixed-time promise." },
-  { q: "Which sources does the research use?", a: "The plan can include company websites, public pricing pages, search data, public communities and other relevant public sources. Findings link back to their evidence and weak claims are flagged." },
-  { q: "What does AI validation not prove?", a: "It cannot guarantee demand, product-market fit or revenue. It reduces avoidable uncertainty and shows which assumptions still need interviews, prototypes or real sales tests." },
-  { q: "How is this different from an AI app builder?", a: "App builders begin with implementation. AI Swarm starts earlier: it tests the opportunity and produces the product decisions and specification a builder needs." },
-  { q: "Can I review the research plan first?", a: "Yes. You see the proposed tasks, sources and outputs before the run, and you can approve or change the plan." },
-  { q: "Do I own the documents?", a: "Yes. Your reports, matrices, PRD and planning files are yours to download and use with any team or development tool." },
-  { q: "What happens after the beta?", a: "Validate + Plan is free during the private beta, with no credit card required. Pricing will be announced before the beta ends, so you can decide before any paid plan begins." },
+  { q: "What is AI Swarm?", a: "AI Swarm is an AI-powered SaaS research and validation platform that uses multiple specialized AI agents to research markets, competitors, customers, pricing, SEO opportunities, and product requirements." },
+  { q: "How is AI Swarm different from ChatGPT?", a: "ChatGPT is a general-purpose AI assistant. AI Swarm is designed around a structured research workflow where specialized agents perform different tasks and their findings are combined into a product research report." },
+  { q: "Do I need technical knowledge?", a: "No. You can provide a simple description of your SaaS idea and AI Swarm handles the research workflow." },
+  { q: "Does AI Swarm guarantee that my SaaS idea will succeed?", a: "No. Research can reduce uncertainty, but it cannot guarantee product-market fit or business success. AI Swarm is designed to give you better evidence and clearer information before making product decisions." },
+  { q: "What does AI Swarm research?", a: "Depending on the workflow, research can include the market, customers, competitors, pricing, trends, SEO, product opportunities, risks, and sources and evidence." },
+  { q: "Can AI Swarm generate a PRD?", a: "PRD generation is part of the product roadmap and planned product workflow." },
+  { q: "Where does the research come from?", a: "AI Swarm is designed to research relevant external sources and connect important findings back to their supporting evidence." },
+  { q: "Is my SaaS idea private?", a: "AI Swarm will provide specific privacy and data-handling terms as the beta launches. Do not submit confidential information until the applicable terms and controls are available." },
+  { q: "When is AI Swarm launching?", a: "The private beta is planned for November 28, 2026 at 10:00 IST." },
+  { q: "Who built AI Swarm?", a: "AI Swarm is built by Nikhil Anand and developed under DevKitMarket." },
 ];
 
 /* ---------- Collaborators ---------- */
@@ -633,7 +710,7 @@ export const collaborators: Collaborator[] = [
     name: "Nikhil Anand",
     role: "Software Developer – Team Lead",
     photo: "/team/nikhil-anand.jpg",
-    bio: "Full-stack developer with 6 years of freelance experience, shipping production apps with Next.js, Node.js and AWS and building AI workflows with LangChain and RAG. Also the founder of DevKit Market.",
+    bio: "A software developer and product builder focused on turning ideas into real software products, with 6 years of freelance experience. The goal behind AI Swarm: make the research and product discovery phase of building software dramatically faster.",
     focus: ["6 years freelance", "Product & engineering", "AI workflows"],
     socials: [
       { kind: "linkedin", href: "https://www.linkedin.com/in/nikhilanand86" },
@@ -666,7 +743,7 @@ export const footerColumns = [
     links: [
       { label: "What you get", href: "#deliverables" },
       { label: "How it works", href: "#how" },
-      { label: "Pricing", href: "#pricing" },
+      { label: "Private beta", href: "#pricing" },
     ],
   },
   {
